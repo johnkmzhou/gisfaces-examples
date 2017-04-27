@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:growl id="growl1" showSummary="true" showDetail="true"></p:growl>
+
+		<p:layout fullPage="true">
+		
+			<p:layoutUnit position="north" styleClass="justify">
+				<h:outputText value="USGS Earthquake Data - Last 7 Days" styleClass="bold"></h:outputText>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="300">
+				<p:panel header="Layers" styleClass="containerPanel">
+					<p:panel header="Background" styleClass="containerPanel">
+						<p:selectOneMenu id="menu1" value="#{mapBean.background}" style="width:100%">
+							<f:selectItems value="#{mapBean.backgrounds}"></f:selectItems>
+							<f:ajax render="mymap"></f:ajax>
+						</p:selectOneMenu>
+					</p:panel>
+					<p:panel header="Earthquakes" styleClass="containerPanel">
+						<h:panelGrid columns="2">
+							<h:selectBooleanCheckbox value="#{mapBean.visible}">
+								<f:ajax render="mymap"></f:ajax>
+							</h:selectBooleanCheckbox>
+							<h:outputText value="Visible"></h:outputText>
+						</h:panelGrid>
+						<h:panelGrid columns="2" width="100%">
+							<h:outputText value="Where"></h:outputText>
+							<h:inputText value="#{mapBean.where}">
+								<f:ajax render="mymap"></f:ajax>
+							</h:inputText>
+							<h:outputText value="Extent"></h:outputText>
+							<h:inputText value="#{mapBean.extent}">
+								<f:ajax render="mymap"></f:ajax>
+							</h:inputText>
+							<h:outputText value="Opacity"></h:outputText>
+							<p:selectOneMenu value="#{mapBean.opacity}">
+								<f:ajax execute="@form" render="mymap"></f:ajax>
+								<f:selectItem itemValue="0.0" itemLabel="0 %"></f:selectItem>
+								<f:selectItem itemValue="0.1" itemLabel="10 %"></f:selectItem>
+								<f:selectItem itemValue="0.2" itemLabel="20 %"></f:selectItem>
+								<f:selectItem itemValue="0.3" itemLabel="30 %"></f:selectItem>
+								<f:selectItem itemValue="0.4" itemLabel="40 %"></f:selectItem>
+								<f:selectItem itemValue="0.5" itemLabel="50 %"></f:selectItem>
+								<f:selectItem itemValue="0.6" itemLabel="60 %"></f:selectItem>
+								<f:selectItem itemValue="0.7" itemLabel="70 %"></f:selectItem>
+								<f:selectItem itemValue="0.8" itemLabel="80 %"></f:selectItem>
+								<f:selectItem itemValue="0.9" itemLabel="90 %"></f:selectItem>
+								<f:selectItem itemValue="1.0" itemLabel="100 %"></f:selectItem>
+							</p:selectOneMenu>
+						</h:panelGrid>
+					</p:panel>
+				</p:panel>
+				<p:panel header="Overview">
+					<h:panelGroup styleClass="gisfacesOverviewPanel" layout="block">
+						<h:panelGroup id="overview" layout="block"></h:panelGroup>
+					</h:panelGroup>
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="east" size="300">
+				<p:panel header="Legend">
+					<h:panelGroup styleClass="gisfacesLegendPanel" layout="block">
+						<h:panelGroup id="legend" layout="block"></h:panelGroup>
+					</h:panelGroup>
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<h:panelGroup id="mymapdiv" styleClass="gisfacesMapPanel" layout="block">
+					<h:panelGroup id="navbar" layout="block" styleClass="gisfacesNavbarPanel"></h:panelGroup>
+					<h:panelGroup id="loading" styleClass="gisfacesLoadingPanel" layout="block">
+						<h:panelGroup styleClass="fa fa-refresh fa-spin"></h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup styleClass="gisfacesGeocoderPanel" layout="block">
+						<h:panelGroup id="geocoder" layout="block"></h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup id="coordinates" styleClass="gisfacesCoordinatesPanel" layout="block"></h:panelGroup>
+				</h:panelGroup>
+			</p:layoutUnit>
+
+		</p:layout>
+
+		<gis:map id="mymap" mapPanel="mymapdiv" overviewPanel="overview" geocoderPanel="geocoder" legendPanel="legend" coordinatesPanel="coordinates" loadingPanel="loading" navigationPanel="navbar" background="#{mapBean.background}" latitude="#{mapBean.latitude}" longitude="#{mapBean.longitude}" zoom="#{mapBean.zoom}">
+			<gis:service type="dynamic" url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/MapServer" opacity="#{mapBean.opacity}">
+				<gis:layer number="0" visible="#{mapBean.visible}" where="#{mapBean.where}" extent="#{mapBean.extent}"></gis:layer>
+			</gis:service>
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="growl1"></f:ajax>
+			<f:ajax event="extent" listener="#{mapBean.doMapExtentListener}" render="growl1"></f:ajax>
+			<f:ajax event="view" listener="#{mapBean.doMapGraphicViewListener}" render="growl1"></f:ajax>
+			<f:ajax event="select" listener="#{mapBean.doMapGraphicSelectListener}" render="growl1"></f:ajax>
+			<f:ajax event="geolocation" listener="#{mapBean.doMapGeoLocationListener}" render="growl1"></f:ajax>
+		</gis:map>
+
+	</h:form>
+</h:body>
+
+</html>
