@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+	
+		<p:growl id="growl1" showSummary="true" showDetail="true"></p:growl>
+	
+		<h:outputText value="Show Latitude and Longitude Coordinates with Graticule Grid"></h:outputText>
+
+		<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel">
+			<h:panelGroup id="panel2" layout="block" styleClass="gisfacesCoordinatesPanel"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="gisfacesGeocoderPanel">
+				<h:panelGroup id="panel3" layout="block"></h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+
+		<gis:map mapPanel="panel1" coordinatesPanel="panel2" geocoderPanel="panel3" latitude="39.828175" longitude="-98.5795" zoom="4">
+			<gis:service type="tiled" url="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"></gis:service>
+			<gis:service type="dynamic" url="http://maps.ngdc.noaa.gov/arcgis/rest/services/graticule/MapServer"></gis:service>
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="growl1"></f:ajax>
+			<f:ajax event="extent" listener="#{mapBean.doMapExtentListener}" render="growl1"></f:ajax>
+			<f:ajax event="view" listener="#{mapBean.doMapGraphicViewListener}" render="growl1"></f:ajax>
+			<f:ajax event="select" listener="#{mapBean.doMapGraphicSelectListener}" render="growl1"></f:ajax>
+		</gis:map>
+
+		<h:outputText value="Click the map anywhere to receive a map click event. Use the geocoder to search for a location."></h:outputText>
+
+	</h:form>
+</h:body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:outputText value="Map Symbols Using The &lt;gis:symbol&gt; Component" styleClass="bold"></h:outputText>
+
+		<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>
+		<gis:map mapPanel="panel1" background="streets" latitude="39.828175" longitude="-98.5795" zoom="4">
+			<gis:service type="dynamic" url="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer"></gis:service>
+		</gis:map>
+
+		<h:panelGrid columns="4">
+			<f:facet name="header">
+				<h:outputText value="Various Symbols"></h:outputText>
+			</f:facet>
+
+			<h:outputText styleClass="bold" value="Symbol"></h:outputText>
+			<h:outputText styleClass="bold" value="Label"></h:outputText>
+			<h:outputText styleClass="bold" value="Layer"></h:outputText>
+			<h:outputText styleClass="bold" value="Service"></h:outputText>
+
+			<gis:symbol url="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer" layer="0" label="Major Flooding"></gis:symbol>
+			<h:outputText value="Major Flooding"></h:outputText>
+			<h:outputText value="0"></h:outputText>
+			<h:outputText value="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer"></h:outputText>
+
+			<gis:symbol url="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer" layer="5" label="Hurricane"></gis:symbol>
+			<h:outputText value="Hurricane"></h:outputText>
+			<h:outputText value="5"></h:outputText>
+			<h:outputText value="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer"></h:outputText>
+
+			<gis:symbol url="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer" layer="10" label="Current Wildfire"></gis:symbol>
+			<h:outputText value="Current Wildfire"></h:outputText>
+			<h:outputText value="10"></h:outputText>
+			<h:outputText value="http://rmgsc.cr.usgs.gov/arcgis/rest/services/igems_haz/MapServer"></h:outputText>
+		</h:panelGrid>
+
+		<h:messages layout="table"></h:messages>
+	</h:form>
+</h:body>
+
+</html>

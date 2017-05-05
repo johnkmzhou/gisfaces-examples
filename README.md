@@ -1,6 +1,6 @@
 # gisfaces-examples
 
-Web application running on WildFly 10.1.0.Final.
+Web application running on WildFly 10.1.0.Final. Code examples were taken from gisfaces-examples-1.8.0.1.war and modified to work in this project environment. Other custom code examples can be found under the custom folder.
 
 ## Installation
 Install Java JDK 8. If you're running on Windows be sure to set your system variable JAVA_HOME to the location of your JDK.

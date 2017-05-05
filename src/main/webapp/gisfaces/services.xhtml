@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Map Services Query</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:panel header="GISFaces Services Query" styleClass="ui-fluid">
+			<p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-10,ui-grid-col-2">
+				<p:outputLabel for="service" value="Map Service URL"></p:outputLabel>
+				<p:inputText id="service" value="#{servicesBean.url}" required="true"></p:inputText>
+				<p:commandButton value="Query" actionListener="#{servicesBean.doQueryButtonActionListener}" update="panel1"></p:commandButton>
+			</p:panelGrid>
+		</p:panel>
+
+		<p:spacer height="10"></p:spacer>
+
+		<p:outputPanel id="panel1">
+			<p:dataTable id="datatable1" value="#{servicesBean.serviceDirectory.services}" var="service" rowExpandMode="single" rendered="#{servicesBean.serviceDirectory != null}">
+				<f:facet name="header">
+					<h:outputText value="Services"></h:outputText>
+				</f:facet>
+				<p:column width="20">
+					<p:rowToggler></p:rowToggler>
+				</p:column>
+				<p:column width="200" headerText="Name">
+					<h:outputText value="#{service.name}"></h:outputText>
+				</p:column>
+				<p:column width="200" headerText="Type">
+					<h:outputText value="#{service.type}"></h:outputText>
+				</p:column>
+				<p:column headerText="Description">
+					<h:outputText escape="false" value="#{service.description}"></h:outputText>
+				</p:column>
+				<p:rowExpansion>
+					<p:dataTable value="#{service.layers}" var="layer" rowExpandMode="single">
+						<f:facet name="header">
+							<h:outputText value="Layers"></h:outputText>
+						</f:facet>
+						<p:column width="20">
+							<p:rowToggler></p:rowToggler>
+						</p:column>
+						<p:column headerText="ID">
+							<h:outputText value="#{layer.id}"></h:outputText>
+						</p:column>
+						<p:column headerText="Name">
+							<h:outputText value="#{layer.name}"></h:outputText>
+						</p:column>
+						<p:column headerText="Type">
+							<h:outputText value="#{layer.type}"></h:outputText>
+						</p:column>
+						<p:column headerText="Geometry Type">
+							<h:outputText value="#{layer.geometryType}"></h:outputText>
+						</p:column>
+						<p:rowExpansion>
+							<p:dataTable value="#{layer.fields}" var="field" rowExpandMode="single">
+								<f:facet name="header">
+									<h:outputText value="Fields"></h:outputText>
+								</f:facet>
+								<p:column headerText="Name">
+									<h:outputText value="#{field.name}"></h:outputText>
+								</p:column>
+								<p:column headerText="Alias">
+									<h:outputText value="#{field.alias}"></h:outputText>
+								</p:column>
+								<p:column headerText="Type">
+									<h:outputText value="#{field.type}"></h:outputText>
+								</p:column>
+								<p:column headerText="Length">
+									<h:outputText value="#{field.length}"></h:outputText>
+								</p:column>
+								<p:column headerText="Values">
+									<h:outputText value="#{field.values}"></h:outputText>
+								</p:column>
+							</p:dataTable>
+						</p:rowExpansion>
+					</p:dataTable>
+				</p:rowExpansion>
+			</p:dataTable>
+		</p:outputPanel>
+
+		<p:messages id="messages1" closable="true" globalOnly="false" autoUpdate="true"></p:messages>
+
+	</h:form>
+</h:body>
+
+</html>

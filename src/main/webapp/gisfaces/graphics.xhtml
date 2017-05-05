@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:outputText value="Custom graphic layers support Marker, Polyline, Polygon, Circle, and Text graphics. You supply all data used to build the graphics."></h:outputText>
+
+		<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>
+
+		<gis:map mapPanel="panel1" background="streets" latitude="30.324814042167475" longitude="-81.65768257140968" zoom="15">
+			<gis:service id="samples" type="graphics" model="#{mapBean.graphicsModel}" opacity="1.0"></gis:service>
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="messages1"></f:ajax>
+			<f:ajax event="extent" listener="#{mapBean.doMapExtentListener}" render="messages1"></f:ajax>
+			<f:ajax event="view" listener="#{mapBean.doMapGraphicViewListener}" render="messages1"></f:ajax>
+			<f:ajax event="select" listener="#{mapBean.doMapGraphicSelectListener}" render="messages1"></f:ajax>
+			<f:ajax event="drag" listener="#{mapBean.doMapGraphicDragListener}" render="messages1"></f:ajax>
+		</gis:map>
+
+		<h:outputText value="Markers are draggable, if specified. See the Marker.setDraggable() method. The f:ajax event lister will be invoked with the new coordinates."></h:outputText>
+
+		<h:messages id="messages1" layout="table" showDetail="true" showSummary="true"></h:messages>
+	</h:form>
+</h:body>
+
+</html>

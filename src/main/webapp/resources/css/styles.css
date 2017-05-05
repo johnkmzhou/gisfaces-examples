@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	background-image: url(gisfaces-background.jpg.xhtml?ln=img);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-color: #FFFFFF;
+	margin-top: -2px;
+}
+
+#header {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 0px;
+	height: auto;
+	padding-top: 0px;
+	text-align: center;
+}
+
+#content {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 73px;
+}
+
+h1 {
+	font-family: verdana;
+	font-size: 24px;
+	font-weight: bold;
+	color: #595010;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+a {
+	font-family: verdana;
+	font-size: 14px;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	font-family: verdana;
+	font-size: 14px;
+	font-weight: bold;
+	color: white;
+	text-decoration: underline;
+}
+
+table {
+	margin: 0px auto;
+	border-spacing: 15px;
+	width: 80%;
+}
+
+table td {
+	text-align: center;
+	background-color: #5c7945;
+	padding: 3px;
+}
+
+.nobg {
+	background-color: transparent;
+}

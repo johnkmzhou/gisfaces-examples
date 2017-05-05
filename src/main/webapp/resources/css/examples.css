@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	padding: 5px;
+	background-color: #FFFFFF;
+}
+
+body,input,select,textarea,button,.ui-widget,.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button,.ui-widget-header,.ui-widget-content,.ui-widget-header .ui-widget-header,.ui-widget-content .ui-widget-content {
+	color: rgb(79, 79, 79) !important;
+	font-family: verdana;
+	font-size: 12px !important;
+}
+
+.ui-selectonemenu {
+	width: calc(100% - 24px) !important;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.justify {
+	text-align: center;
+}
+
+.liquid {
+	height: 100%;
+	overflow: hidden;
+	border-radius: 3px;
+}
+
+.containerPanel {
+	margin-bottom: 5px;
+}
+
+.overviewPanel {
+	height: 160px;
+	padding: 5px;
+}

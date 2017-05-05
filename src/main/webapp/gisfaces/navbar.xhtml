@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl1" showSummary="true" showDetail="true"></p:growl>
+
+		<h:outputText value="Show Navigational Toolbar Panel"></h:outputText>
+
+		<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel">
+			<h:panelGroup id="panel2" layout="block" styleClass="gisfacesNavbarPanel"></h:panelGroup>
+			<h:panelGroup id="panel3" layout="block" styleClass="gisfacesCoordinatesPanel"></h:panelGroup>
+			<h:panelGroup id="panel4" layout="block" styleClass="gisfacesLoadingPanel">
+				<h:panelGroup styleClass="fa fa-refresh fa-spin"></h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="gisfacesGeocoderPanel">
+				<h:panelGroup id="panel5" layout="block"></h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+
+		<h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-mouse-pointer"></h:outputText>
+				<h:outputText value="Pan/Select Tool. Use to pan or select map features. This is the default map tool."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-search-plus"></h:outputText>
+				<h:outputText value="Zoom In Tool. Click and drag a rectangle to zoom in."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-search-minus"></h:outputText>				
+				<h:outputText value="Zoom Out Tool. Click and drag a rectangle to zoom out."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-refresh"></h:outputText>
+				<h:outputText value="Refresh all map layers."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-arrows-alt"></h:outputText>
+				<h:outputText value="Toggle full screen mode."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-globe"></h:outputText>
+				<h:outputText value="Reset the map to the default extent."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-crosshairs"></h:outputText>
+				<h:outputText value="Find your current position using the HTML5 Geolocation API."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-arrow-left"></h:outputText>
+				<h:outputText value="Previous map extent."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-arrow-right"></h:outputText>				
+				<h:outputText value="Next map extent."></h:outputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText styleClass="fa fa-times"></h:outputText>
+				<h:outputText value="Reset to the map pan tool and remove geolocation markers."></h:outputText>
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<gis:map mapPanel="panel1" navigationPanel="panel2" coordinatesPanel="panel3" loadingPanel="panel4" geocoderPanel="panel5" background="osm" showArrows="true">
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="growl1"></f:ajax>
+			<f:ajax event="extent" listener="#{mapBean.doMapExtentListener}" render="growl1"></f:ajax>
+			<f:ajax event="geolocation" listener="#{mapBean.doMapGeoLocationListener}" render="growl1"></f:ajax>
+		</gis:map>
+	</h:form>
+</h:body>
+
+</html>

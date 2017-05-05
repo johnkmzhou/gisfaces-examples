@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl1" showSummary="true" showDetail="true"></p:growl>
+
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north" styleClass="justify">
+				<h:outputText value="Current Weather Conditions" styleClass="bold"></h:outputText>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="300">
+				<p:panel header="Options" toggleable="true" toggleSpeed="0" styleClass="containerPanel">
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="Background" styleClass="bold"></h:outputText>
+						<p:selectOneMenu value="#{mapBean.background}">
+							<f:selectItems value="#{mapBean.backgrounds}"></f:selectItems>
+							<f:ajax render="map1"></f:ajax>
+						</p:selectOneMenu>
+
+						<h:outputText value="Opacity" styleClass="bold"></h:outputText>
+						<p:selectOneMenu value="#{mapBean.opacity}">
+							<f:ajax render="map1"></f:ajax>
+							<f:selectItem itemValue="0.0" itemLabel="0%"></f:selectItem>
+							<f:selectItem itemValue="0.1" itemLabel="10%"></f:selectItem>
+							<f:selectItem itemValue="0.2" itemLabel="20%"></f:selectItem>
+							<f:selectItem itemValue="0.3" itemLabel="30%"></f:selectItem>
+							<f:selectItem itemValue="0.4" itemLabel="40%"></f:selectItem>
+							<f:selectItem itemValue="0.5" itemLabel="50%"></f:selectItem>
+							<f:selectItem itemValue="0.6" itemLabel="60%"></f:selectItem>
+							<f:selectItem itemValue="0.7" itemLabel="70%"></f:selectItem>
+							<f:selectItem itemValue="0.8" itemLabel="80%"></f:selectItem>
+							<f:selectItem itemValue="0.9" itemLabel="90%"></f:selectItem>
+							<f:selectItem itemValue="1.0" itemLabel="100%"></f:selectItem>
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel header="Legend" toggleable="true" toggleSpeed="0" styleClass="containerPanel">
+					<p:scrollPanel style="max-height:200px;" mode="native">
+						<h:panelGroup id="panel2" layout="block"></h:panelGroup>
+					</p:scrollPanel>
+				</p:panel>
+
+				<p:panel header="Overview" toggleable="true" toggleSpeed="0" styleClass="containerPanel">
+					<h:panelGroup id="panel3" styleClass="overviewPanel" layout="block"></h:panelGroup>
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<h:panelGroup id="panel1" styleClass="liquid" layout="block"></h:panelGroup>	
+			</p:layoutUnit>
+
+		</p:layout>
+
+		<gis:map id="map1" mapPanel="panel1" legendPanel="panel2" overviewPanel="panel3" background="#{mapBean.background}" latitude="39.828175" longitude="-98.5795" zoom="4">
+			<gis:service id="radar" type="dynamic" url="https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer" opacity="#{mapBean.opacity}" refreshInterval="5"></gis:service>
+			<gis:service id="warnings" type="dynamic" url="https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer" refreshInterval="5"></gis:service>
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="growl1"></f:ajax>
+			<f:ajax event="extent" listener="#{mapBean.doMapExtentListener}" render="growl1"></f:ajax>
+			<f:ajax event="view" listener="#{mapBean.doMapGraphicViewListener}" render="growl1"></f:ajax>
+			<f:ajax event="select" listener="#{mapBean.doMapGraphicSelectListener}" render="growl1"></f:ajax>
+		</gis:map>
+
+	</h:form>
+</h:body>
+
+</html>

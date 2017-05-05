@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:panelGrid width="100%">
+			<f:facet name="header">
+				<h:outputText value="Map component popup window attributes."></h:outputText>
+			</f:facet>
+
+			<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>
+
+			<gis:map mapPanel="panel1" background="streets" showPopup="true" popupWidth="600" popupHeight="100">
+				<gis:service type="dynamic" url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/EarthquakesFromLastSevenDays/MapServer">
+					<gis:layer number="0" visible="true" where="" popupAttributes="'datetime','magnitude','region'"></gis:layer>
+				</gis:service>
+			</gis:map>
+
+			<f:facet name="footer">
+				<h:panelGrid columns="5">
+					<f:facet name="header">
+						<h:outputText value="Popup Related Attributes"></h:outputText>
+					</f:facet>
+					<h:outputText styleClass="bold" value="Component"></h:outputText>
+					<h:outputText styleClass="bold" value="Attribute"></h:outputText>
+					<h:outputText styleClass="bold" value="Description"></h:outputText>
+					<h:outputText styleClass="bold" value="Default"></h:outputText>
+					<h:outputText styleClass="bold" value="Example Shown"></h:outputText>
+
+					<h:outputText value="gis:map"></h:outputText>
+					<h:outputText value="showPopup"></h:outputText>
+					<h:outputText value="Sets the popup window visibility on a mouse click."></h:outputText>
+					<h:outputText value="true"></h:outputText>
+					<h:outputText value="true"></h:outputText>
+
+					<h:outputText value="gis:map"></h:outputText>
+					<h:outputText value="popupWidth"></h:outputText>
+					<h:outputText value="Sets the popup window width in pixels."></h:outputText>
+					<h:outputText value="400"></h:outputText>
+					<h:outputText value="600"></h:outputText>
+
+					<h:outputText value="gis:map"></h:outputText>
+					<h:outputText value="popupHeight"></h:outputText>
+					<h:outputText value="Sets the popup windows maximum height in pixels."></h:outputText>
+					<h:outputText value="200"></h:outputText>
+					<h:outputText value="100"></h:outputText>
+
+					<h:outputText value="gis:layer"></h:outputText>
+					<h:outputText value="popupAttributes"></h:outputText>
+					<h:outputText value="Sets the feature attributes displayed."></h:outputText>
+					<h:outputText value="*"></h:outputText>
+					<h:outputText value="'datetime','magnitude','region'"></h:outputText>
+				</h:panelGrid>
+			</f:facet>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl1" showSummary="true" showDetail="true"></p:growl>
+
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north" styleClass="justify">
+				<h:outputText value="ESRI Background Layers" styleClass="bold"></h:outputText>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="200">
+				<h:panelGrid width="100%">
+					<h:outputText value="Select Background" styleClass="bold"></h:outputText>
+
+					<p:selectOneMenu id="menu1" value="#{mapBean.background}">
+						<f:selectItems value="#{mapBean.backgrounds}"></f:selectItems>
+						<f:ajax render="map1"></f:ajax>
+					</p:selectOneMenu>
+
+					<p:commandButton value="Reset Map" actionListener="#{mapBean.resetActionListener}" update="map1 menu1"></p:commandButton>
+				</h:panelGrid>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>	
+			</p:layoutUnit>
+
+		</p:layout>
+	
+		<gis:map id="map1" mapPanel="panel1" background="#{mapBean.background}" latitude="#{mapBean.latitude}" longitude="#{mapBean.longitude}" zoom="#{mapBean.zoom}">
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="growl1"></f:ajax>
+			<f:ajax event="extent" listener="#{mapBean.doMapExtentListener}" render="growl1"></f:ajax>
+		</gis:map>
+
+	</h:form>
+</h:body>
+
+</html>

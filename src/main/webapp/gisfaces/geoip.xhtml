@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:gis="http://gisfaces.com">
+
+<h:head>
+	<title>GISFaces Example Map</title>
+	<h:outputStylesheet library="css" name="examples.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:growl id="growl1" showSummary="true" showDetail="true"></p:growl>
+
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north">
+				<p:panel header="Geocode an IP Address or Domain Name" footer="Geocoding by http://freegeoip.net">
+					<h:panelGrid columns="3">
+						<p:inputText id="ipaddr" value="#{mapBean.geoip}" placeholder="IP Address or Domain"></p:inputText>
+						<p:commandButton value="Search" actionListener="#{mapBean.geoIpActionListener}" update="map1 growl1"></p:commandButton>
+						<p:commandButton value="Reset" actionListener="#{mapBean.resetActionListener}" update="map1 ipaddr"></p:commandButton>
+					</h:panelGrid>
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel">
+					<h:panelGroup styleClass="gisfacesGeocoderPanel" layout="block">
+						<h:panelGroup id="panel2" layout="block"></h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup id="panel3" styleClass="gisfacesNavbarPanel" layout="block"></h:panelGroup>
+					<h:panelGroup id="panel4" styleClass="gisfacesCoordinatesPanel" layout="block"></h:panelGroup>
+				</h:panelGroup>	
+			</p:layoutUnit>
+
+		</p:layout>
+
+		<gis:map id="map1" mapPanel="panel1" geocoderPanel="panel2" navigationPanel="panel3" coordinatesPanel="panel4" background="#{mapBean.background}" latitude="#{mapBean.latitude}" longitude="#{mapBean.longitude}" zoom="#{mapBean.zoom}">
+			<gis:service type="graphics" model="#{mapBean.geoipGraphicsModel}"></gis:service>
+			<f:ajax event="click" listener="#{mapBean.doMapClickListener}" render="growl1"></f:ajax>
+			<f:ajax event="view" listener="#{mapBean.doMapGraphicViewListener}" render="growl1"></f:ajax>
+			<f:ajax event="select" listener="#{mapBean.doMapGraphicSelectListener}" render="growl1"></f:ajax>
+		</gis:map>
+
+	</h:form>
+</h:body>
+
+</html>
