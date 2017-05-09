@@ -2,21 +2,37 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:gis="http://gisfaces.com">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:gis="http://gisfaces.com">
 
 <h:head>
-	<title>GISFaces Example Map</title>
+	<title>Transportation Example Map</title>
 </h:head>
 
 <h:body>
 	<h:form>
-		<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>
-		<gis:map mapPanel="panel1" background="streets" latitude="21.47"
+		<p:selectOneMenu value="#{transportationBean.background}">
+			<f:selectItems value="#{transportationBean.backgrounds}" />
+			<f:ajax render="map" />
+		</p:selectOneMenu>
+
+		<p:selectOneMenu value="#{transportationBean.layer}">
+			<f:selectItems value="#{transportationBean.layers}" />
+			<f:ajax render="map" />
+		</p:selectOneMenu>
+
+		<h:panelGroup id="mapDiv" layout="block" styleClass="gisfacesMapPanel">
+			<h:panelGroup id="loading" layout="block"
+				styleClass="gisfacesLoadingPanel">
+				<h:panelGroup styleClass="fa fa-refresh fa-spin"></h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+
+		<gis:map id="map" mapPanel="mapDiv" loadingPanel="loading"
+			background="#{transportationBean.background}" latitude="21.47"
 			longitude="-157.97" zoom="10">
-			<gis:service type="dynamic"
-				url="http://geodata.hawaii.gov/arcgis/rest/services/Transportation/MapServer?f=pjson">
-				<gis:layer number="0">
-				</gis:layer>
+			<gis:service type="dynamic" url="#{transportationBean.url}">
+				<gis:layer number="#{transportationBean.layer}" />
 			</gis:service>
 		</gis:map>
 	</h:form>
