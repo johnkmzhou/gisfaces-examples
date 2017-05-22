@@ -21,16 +21,22 @@
 			<f:ajax render="map" />
 		</p:selectOneMenu>
 
-		<h:panelGroup id="mapDiv" layout="block" styleClass="gisfacesMapPanel">
+		<h:panelGroup id="geocoder" layout="block" />
+
+		<h:panelGroup id="map-display" layout="block"
+			styleClass="gisfacesMapPanel">
 			<h:panelGroup id="loading" layout="block"
 				styleClass="gisfacesLoadingPanel">
-				<h:panelGroup styleClass="fa fa-refresh fa-spin"></h:panelGroup>
+				<h:panelGroup styleClass="fa fa-refresh fa-spin" />
 			</h:panelGroup>
 		</h:panelGroup>
 
-		<gis:map id="map" mapPanel="mapDiv" loadingPanel="loading"
-			background="#{transportationBean.background}" latitude="21.47"
-			longitude="-157.97" zoom="10">
+		<h:panelGroup id="coordinates" layout="block" />
+
+		<gis:map id="map" mapPanel="map-display" loadingPanel="loading"
+			geocoderPanel="geocoder" coordinatesPanel="coordinates"
+			legendPanel="legend" background="#{transportationBean.background}"
+			latitude="21.47" longitude="-157.97" zoom="10">
 			<gis:service type="dynamic" url="#{transportationBean.url}">
 				<gis:layer number="#{transportationBean.layer}" />
 			</gis:service>

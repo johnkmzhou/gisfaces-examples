@@ -9,6 +9,8 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.jboss.logging.Logger;
+
 import com.gisfaces.model.map.Background;
 import com.gisfaces.model.service.ServiceLayerMetadata;
 import com.gisfaces.model.service.ServiceMetadataBuilder;
@@ -17,7 +19,8 @@ import com.gisfaces.utilities.json.JSONException;
 @Named
 @ViewScoped
 public class TransportationBean implements Serializable {
-	private static final long serialVersionUID = 1228083443842218822L;
+	private static final long serialVersionUID = 1862019119442479815L;
+	private static Logger log = Logger.getLogger(TransportationBean.class.getName());
 	private String url = "http://geodata.hawaii.gov/arcgis/rest/services/Transportation/MapServer";
 	private String background = "streets";
 	private String layer = "0";
@@ -33,17 +36,12 @@ public class TransportationBean implements Serializable {
 				layers.add(new SelectItem(l.getId(), l.getName()));
 			}
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Exception processing service layer metadata.", e);
 		}
 	}
 
 	public String getUrl() {
 		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 	public String getBackground() {
@@ -68,10 +66,6 @@ public class TransportationBean implements Serializable {
 
 	public List<SelectItem> getLayers() {
 		return layers;
-	}
-
-	public void setLayers(List<SelectItem> layers) {
-		this.layers = layers;
 	}
 
 }

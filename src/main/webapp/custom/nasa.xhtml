@@ -2,24 +2,29 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:gis="http://gisfaces.com">
- 
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:gis="http://gisfaces.com">
+
 <h:head>
-	<title>GISFaces Example Map</title>
+	<title>NASA FIRMS Fire Alerts from 1 to 30 June 2013</title>
 </h:head>
- 
+
 <h:body>
 	<h:form>
-		<h:panelGroup id="panel1" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>
-		<h:panelGroup id="panel2" layout="block" styleClass="gisfacesMapPanel"></h:panelGroup>
-		<gis:map mapPanel="panel1" coordinatesPanel="panel2" background="national-geographic" latitude="-1.5" longitude="102" zoom="8">
-			<gis:service type="tiled" url="http://tiles.arcgis.com/tiles/P8Cok4qAP1sTVE59/arcgis/rest/services/FireRiauWMFeaturesFireAlert/MapServer" opacity="1.0">	
-			</gis:service>
-			<gis:service type="image" url="http://imagery.arcgisonline.com/ArcGIS/rest/services/LandsatGLS/FalseColor/ImageServer" opacity="0.5">	
-			</gis:service>
+		<h:panelGroup id="map-display" layout="block"
+			styleClass="gisfacesMapPanel">
+			<h:panelGroup id="loading" layout="block"
+				styleClass="gisfacesLoadingPanel">
+				<h:panelGroup styleClass="fa fa-refresh fa-spin" />
+			</h:panelGroup>
+		</h:panelGroup>
+		<gis:map mapPanel="map-display" loadingPanel="loading"
+			background="national-geographic" latitude="-1.5" longitude="102"
+			zoom="8">
+			<gis:service type="tiled"
+				url="http://tiles.arcgis.com/tiles/P8Cok4qAP1sTVE59/arcgis/rest/services/FireRiauWMFeaturesFireAlert/MapServer"
+				opacity="1.0" />
 		</gis:map>
 	</h:form>
 </h:body>
- 
+
 </html>
