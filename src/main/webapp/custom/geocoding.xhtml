@@ -14,9 +14,14 @@
 		<p:inputText value="#{geocodingBean.address}" placeholder="Address" />
 		<p:commandButton value="Search"
 			actionListener="#{geocodingBean.geocodingActionListener}"
-			update="json-response" />
-		<br />
-		<h:outputText id="json-response" value="#{geocodingBean.jsonResponse}" />
+			update="map" />
+		<h:panelGroup id="map-display" layout="block"
+			styleClass="gisfacesMapPanel"></h:panelGroup>
+		<gis:map id="map" mapPanel="map-display" background="streets"
+			latitude="#{geocodingBean.latitude}"
+			longitude="#{geocodingBean.longitude}" zoom="#{geocodingBean.zoom}">
+			<gis:service type="graphics" model="#{geocodingBean.locations}"></gis:service>
+		</gis:map>
 	</h:form>
 </h:body>
 
